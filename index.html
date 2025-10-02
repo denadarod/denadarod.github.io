@@ -22,7 +22,7 @@
          @media (min-width: 768px) { .video-container { padding: 40px; } }
         .grade-selector { margin: 20px 0; }
         .grade-selector button {
-            margin: 0 10px; padding: 10px 20px; font-size: 1em; background: #f0f2f5; color: #555;
+            margin: 5px; padding: 10px 20px; font-size: 1em; background: #f0f2f5; color: #555;
         }
         .grade-selector button.active { background: linear-gradient(45deg, #28a745, #20c997); color: white; }
         .word-display {
@@ -39,7 +39,7 @@
         .blend-container {
             min-height: 100px; display: flex; align-items: center; justify-content: center;
             font-size: clamp(2em, 6vw, 3.5em); font-weight: bold; overflow: hidden;
-            padding: 10px 0;
+            padding: 20px 0;
         }
         .blend-parts { display: flex; align-items: center; justify-content: center; width: 100%; }
         .blend-part {
@@ -70,8 +70,9 @@
     <div class="header"><h1>🌟 Syd's Sight Words! 🌟</h1></div>
     <div class="video-container">
         <div class="grade-selector">
-            <button id="grade1Btn" class="active" onclick="switchGrade(1)">1st Grade Words</button>
-            <button id="grade2Btn" onclick="switchGrade(2)">2nd Grade Words</button>
+            <button id="grade1Btn" class="active" onclick="switchGrade(1)">1st Grade</button>
+            <button id="grade2Btn" onclick="switchGrade(2)">2nd Grade</button>
+            <button id="grade3Btn" onclick="switchGrade(3)">3rd Grade</button>
         </div>
         <div class="word-display" id="wordDisplay">Ready to start!</div>
         <div class="sound-display" id="soundDisplay">
@@ -94,6 +95,7 @@
 
         const grade1Words = ['the', 'and', 'a', 'to', 'you', 'it', 'in', 'was', 'she', 'that', 'his', 'her', 'for', 'on', 'they', 'but', 'had', 'at', 'him', 'with', 'up', 'all', 'look', 'is', 'there', 'some', 'out', 'be', 'have', 'go', 'we', 'am', 'then', 'down', 'do', 'can', 'when', 'did', 'what', 'so', 'see', 'not', 'were', 'get', 'them', 'like', 'one', 'this', 'my', 'me', 'will', 'yes', 'big', 'went', 'are', 'come', 'if', 'now', 'no', 'came', 'ask', 'very', 'an', 'over', 'your', 'just', 'blue', 'red', 'from', 'good', 'any', 'about', 'around', 'how', 'know', 'right', 'put', 'too', 'old', 'take', 'cat', 'again', 'give', 'after', 'many', 'stop', 'let'];
         const grade2Words = ['always', 'around', 'because', 'been', 'before', 'best', 'both', 'call', 'cold', 'fast', 'first', 'five', 'found', 'gave', 'goes', 'green', 'made', 'many', 'off', 'or', 'read', 'right', 'sing', 'sit', 'sleep', 'tell', 'their', 'these', 'those', 'us', 'use', 'very', 'which', 'why', 'work', 'write', 'your', 'brown', 'clean', 'drink', 'eight', 'fall', 'far', 'full', 'got', 'grow', 'hold', 'hot', 'keep', 'kind', 'laugh', 'light', 'much', 'never', 'only', 'own', 'seven', 'show', 'six', 'small', 'start', 'ten', 'today', 'together', 'try', 'turn', 'walk', 'warm', 'where', 'once', 'open', 'think'];
+        const grade3Words = ['ten', 'desks', 'wall', 'art', 'cut', 'out', 'bars', 'reads', 'pretty', 'look', 'flying', 'many', 'bright', 'ocean', 'them', 'name', 'playful', 'likes', 'running', 'soft', 'with', 'gloves', 'played', 'very', 'went', 'great', 'sky', 'are', 'clouds', 'looks', 'like', 'that', 'they', 'fun', 'ride', 'he', 'met', 'all', 'rode', 'to', 'play', 'his', 'party', 'lot', 'games', 'loved', 'balloon', 'has', 'dog', 'the', 'ball', 'Bob', 'bird', 'no', 'cat', 'fat', 'sat', 'mat', 'pat', 'map', 'tap', 'sap'];
 
         let currentGrade = 1, currentWordIndex = 0, currentWords = grade1Words, isPlaying = false;
         let blendSteps = [], currentBlendStepIndex = 0;
@@ -120,9 +122,19 @@
             currentWordIndex = 0;
             isPlaying = false;
             wordDisplay.textContent = "Ready to start!";
-            currentWords = (grade === 1) ? grade1Words : grade2Words;
+            
+            if (grade === 1) {
+                currentWords = grade1Words;
+            } else if (grade === 2) {
+                currentWords = grade2Words;
+            } else if (grade === 3) {
+                currentWords = grade3Words;
+            }
+
             document.getElementById('grade1Btn').classList.toggle('active', grade === 1);
             document.getElementById('grade2Btn').classList.toggle('active', grade === 2);
+            document.getElementById('grade3Btn').classList.toggle('active', grade === 3);
+            
             showSoundsBtn.disabled = true;
             updateProgress();
             updateWordInfo();
